@@ -5,6 +5,10 @@
 
 <h2>People</h2>
 
+<a class="btn btn-info" href="@Url.Action("Create")">Create</a>
+
+@*@Html.ActionLink("Create", "Create", null, new {@class = "btn btn-info"})*@
+
 <table class="table table-striped">
     <tr>
         <th></th>
@@ -15,7 +19,7 @@
     @foreach (var person in Model)
     {
         <tr>
-            <td>@Html.ActionLink("Edit", "Edit", new { id = person.Id })</td>
+            <td>@Html.ActionLink("Edit", "Edit", new {id = person.Id})</td>
             <td>@person.Gender</td>
             <td>@person.GivenName</td>
             <td>@person.LastName</td>

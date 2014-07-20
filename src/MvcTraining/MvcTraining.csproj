@@ -250,6 +250,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\EditPerson\Edit.cshtml" />
     <Content Include="Views\EditPerson\Index.cshtml" />
+    <Content Include="Views\EditPerson\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

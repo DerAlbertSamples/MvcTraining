@@ -20,7 +20,6 @@ namespace MvcTraining.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Person model)
         {
-            ValidatePerson(model);
             if (ModelState.IsValid)
             {
                 DbContext.People.Add(model);
@@ -30,17 +29,6 @@ namespace MvcTraining.Controllers
             return View(model);
         }
 
-        private void ValidatePerson(Person model)
-        {
-            if (string.IsNullOrWhiteSpace(model.GivenName))
-            {
-                ModelState.AddModelError("GivenName", "Bitte gib einen Vornamen an");
-            }
-            if (string.IsNullOrWhiteSpace(model.LastName))
-            {
-                ModelState.AddModelError("LastName", "Bitte gib einen Nachnamen an");
-            }
-        }
 
 
         public async Task<ActionResult> Edit(long id)
@@ -53,7 +41,6 @@ namespace MvcTraining.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(long id, Person model)
         {
-            ValidatePerson(model);
             if (ModelState.IsValid)
             {
                 var person = await GetPerson(id);

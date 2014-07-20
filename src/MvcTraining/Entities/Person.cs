@@ -12,8 +12,10 @@ namespace MvcTraining.Entities
         public long Id { get; private set; }
         public Gender Gender { get; set; }
 
+        [Required]
         [StringLength(64)]
         public string GivenName { get; set; }
+        [Required]
         [StringLength(64)]
         public string LastName { get; set; }
 

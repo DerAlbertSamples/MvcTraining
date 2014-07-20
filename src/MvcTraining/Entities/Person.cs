@@ -10,13 +10,14 @@ namespace MvcTraining.Entities
             Contact=new Contact();
         }
         public long Id { get; private set; }
-
         public Gender Gender { get; set; }
-        public string GivenName { get; set; }
 
+        [StringLength(64)]
+        public string GivenName { get; set; }
+        [StringLength(64)]
         public string LastName { get; set; }
 
-        public Address Address { get; set; }
+        public Address Address { get; private set; }
         public Contact Contact { get; private set; }
     }
 }

@@ -20,17 +20,26 @@ namespace MvcTraining.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Person model)
         {
+            ValidatePerson(model);
+            if (ModelState.IsValid)
+            {
+                DbContext.People.Add(model);
+                await DbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        private void ValidatePerson(Person model)
+        {
             if (string.IsNullOrWhiteSpace(model.GivenName))
             {
-                return View(model);
+                ModelState.AddModelError("GivenName", "Bitte gib einen Vornamen an");
             }
             if (string.IsNullOrWhiteSpace(model.LastName))
             {
-                return View(model);
+                ModelState.AddModelError("LastName", "Bitte gib einen Nachnamen an");
             }
-            DbContext.People.Add(model);
-            await DbContext.SaveChangesAsync();
-            return RedirectToAction("Index");
         }
 
 
@@ -44,12 +53,17 @@ namespace MvcTraining.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(long id, Person model)
         {
-            var person = await GetPerson(id);
-            person.GivenName = model.GivenName;
-            person.LastName = model.LastName;
-            person.Gender = model.Gender;
-            await DbContext.SaveChangesAsync();
-            return RedirectToAction("Index");
+            ValidatePerson(model);
+            if (ModelState.IsValid)
+            {
+                var person = await GetPerson(id);
+                person.GivenName = model.GivenName;
+                person.LastName = model.LastName;
+                person.Gender = model.Gender;
+                await DbContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         private async Task<Person> GetPerson(long id)

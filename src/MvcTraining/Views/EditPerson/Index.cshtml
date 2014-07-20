@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Person>
+@{
+    ViewBag.Title = "People";
+}
+
+<h2>People</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>Gender</th>
+        <th>GivenName</th>
+        <th>LastName</th>
+    </tr>
+    @foreach (var person in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink("Edit", "Edit", new { id = person.Id })</td>
+            <td>@person.Gender</td>
+            <td>@person.GivenName</td>
+            <td>@person.LastName</td>
+        </tr>
+    }
+</table>

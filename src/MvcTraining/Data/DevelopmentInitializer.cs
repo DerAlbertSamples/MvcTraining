@@ -3,9 +3,9 @@ using MvcTraining.Entities;
 
 namespace MvcTraining.Data
 {
-    public class DevelopmentInitializer : DropCreateDatabaseIfModelChanges<TrainingDbContext>
+    public class DevelopmentInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
-        protected override void Seed(TrainingDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             base.Seed(context);
 

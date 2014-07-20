@@ -160,12 +160,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DatabaseConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\DevelopmentInitializer.cs" />
+    <Compile Include="Data\TrainingDbContext.cs" />
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\Contact.cs" />
+    <Compile Include="Entities\Gender.cs" />
+    <Compile Include="Entities\Person.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

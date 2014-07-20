@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Google;
+using MvcTraining.Data;
 using Owin;
 using System;
 using MvcTraining.Models;
@@ -17,7 +18,7 @@ namespace MvcTraining
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationDbContext>(TrainingDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
@@ -29,12 +30,13 @@ namespace MvcTraining
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                    OnValidateIdentity =
+                        SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                            validateInterval: TimeSpan.FromMinutes(30),
+                            regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             });
-            
+
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers

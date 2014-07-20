@@ -12,17 +12,17 @@
 <table class="table table-striped">
     <tr>
         <th></th>
-        <th>Gender</th>
-        <th>GivenName</th>
-        <th>LastName</th>
+        <th>@Html.DisplayNameFor(p => p.Gender)</th>
+        <th>@Html.DisplayNameFor(p => p.GivenName)</th>
+        <th>@Html.DisplayNameFor(p => p.LastName)</th>
     </tr>
     @foreach (var person in Model)
     {
         <tr>
             <td>@Html.ActionLink("Edit", "Edit", new {id = person.Id})</td>
-            <td>@person.Gender</td>
-            <td>@person.GivenName</td>
-            <td>@person.LastName</td>
+            <td>@Html.DisplayFor(p => person.Gender)
+            <td>@Html.DisplayFor(p => person.GivenName)
+            <td>@Html.DisplayFor(p => person.LastName)
         </tr>
     }
 </table>

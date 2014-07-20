@@ -1,0 +1,42 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@model Enum
+
+@functions{
+
+    private string GetDisplayName(Type type, Enum value)
+    {
+        foreach (var field in type.GetFields(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public | BindingFlags.GetField))
+        {
+            var constValue = field.GetRawConstantValue();
+            var enumValue = Convert.ChangeType(value, value.GetTypeCode());
+            if (constValue.Equals(enumValue))
+            {
+                return GetFieldName(field);
+            }
+        }
+        return value.ToString();
+    }
+
+    private string GetFieldName(MemberInfo field)
+    {
+        var customAttribute = field.GetCustomAttribute<DisplayAttribute>(false);
+        if (customAttribute != null)
+        {
+            string name = customAttribute.GetName();
+            if (!string.IsNullOrEmpty(name))
+                return name;
+        }
+        return field.Name;
+    }
+
+}
+@if (EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata))
+{
+    string displayName = GetDisplayName(ViewData.ModelMetadata.ModelType, Model);
+    @Html.DisplayTextFor(model => displayName)
+}
+else
+{
+    @Html.DisplayTextFor(model => model)
+}

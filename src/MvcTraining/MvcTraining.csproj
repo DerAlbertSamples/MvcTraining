@@ -252,6 +252,8 @@
     <Content Include="Views\EditPerson\Index.cshtml" />
     <Content Include="Views\EditPerson\Create.cshtml" />
     <Content Include="Views\EditPerson\_PersonForm.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

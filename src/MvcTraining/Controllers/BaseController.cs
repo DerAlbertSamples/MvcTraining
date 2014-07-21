@@ -20,5 +20,14 @@ namespace MvcTraining.Controllers
         {
             get { return _db.Value; }
         }
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+            if (_db.IsValueCreated)
+            {
+                _db.Value.Dispose();
+            }
+        }
     }
 }

@@ -28,9 +28,7 @@ namespace MvcTraining.Controllers
             }
             return View(model);
         }
-
-
-
+        
         public async Task<ActionResult> Edit(long id)
         {
             var person = await GetPerson(id);

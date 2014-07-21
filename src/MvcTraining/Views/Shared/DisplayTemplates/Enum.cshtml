@@ -12,20 +12,23 @@
             var enumValue = Convert.ChangeType(value, value.GetTypeCode());
             if (constValue.Equals(enumValue))
             {
-                return GetFieldName(field);
+                return GetDisplayName(field);
             }
         }
         return value.ToString();
     }
 
-    private string GetFieldName(MemberInfo field)
+    private string GetDisplayName(MemberInfo field)
     {
         var customAttribute = field.GetCustomAttribute<DisplayAttribute>(false);
-        if (customAttribute != null)
+        if (customAttribute == null)
         {
-            string name = customAttribute.GetName();
-            if (!string.IsNullOrEmpty(name))
-                return name;
+            return field.Name;
+        }
+        string name = customAttribute.GetName();
+        if (!string.IsNullOrEmpty(name))
+        {
+            return name;
         }
         return field.Name;
     }
@@ -33,7 +36,7 @@
 }
 @if (EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata))
 {
-    string displayName = GetDisplayName(ViewData.ModelMetadata.ModelType, Model);
+    var displayName = GetDisplayName(ViewData.ModelMetadata.ModelType, Model);
     @Html.DisplayTextFor(model => displayName)
 }
 else

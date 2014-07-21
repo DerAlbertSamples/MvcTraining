@@ -181,6 +181,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Attributes\DoNotValidateAntiForgeryToken.cs" />
+    <Compile Include="Attributes\ValidationAntiForgeryTokenFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

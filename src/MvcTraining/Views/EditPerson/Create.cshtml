@@ -7,7 +7,8 @@
 
 @Html.ValidationSummary(false)
 
-<form method="post">   
+<form method="post">
+    @Html.AntiForgeryToken()
     @Html.Partial("_PersonForm")
     <button type="submit">Neu anlegen</button>
 </form>

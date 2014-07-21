@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Person>
+﻿@model IEnumerable<TrainingMVC.Entities.Person>
 @{
     ViewBag.Title = "People";
 
@@ -29,7 +29,10 @@
     @foreach (var person in Model)
     {
         <tr>
-            <td>@Html.ActionLink("Edit", "Edit", new {id = person.Id})</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = person.Id})
+                @Html.ActionLink("Details", "Details", new {id = person.Id})
+            </td>
             <td>@person.Gender</td>
             <td>@person.GivenName</td>
             <td>@person.LastName</td>

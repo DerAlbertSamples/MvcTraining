@@ -1,19 +1,21 @@
 ﻿@model Person
 
 <div class="form-group">
-    @Html.LabelFor(p=>p.Gender)
-    @Html.EditorFor(p=>p.Gender, new{@class="form-control"})
+    @Html.LabelFor(p => p.Gender)
+    @Html.EnumDropDownListFor(p => p.Gender, new {@class = "form-control"})
     @Html.ValidationMessageFor(p => p.Gender)
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(p=>p.GivenName)
+    @Html.LabelFor(p => p.GivenName)
     @Html.TextBoxFor(p => p.GivenName, new {@class = "form-control"})
-    @Html.ValidationMessageFor(p=>p.GivenName)
+    @Html.ValidationMessageFor(p => p.GivenName)
 </div>
 
 <div class="form-group">
     @Html.LabelFor(p => p.LastName)
-    @Html.TextBoxFor(p => p.LastName, new { @class = "form-control" })
+    @Html.TextBoxFor(p => p.LastName, new {@class = "form-control"})
     @Html.ValidationMessageFor(p => p.LastName)
 </div>
+
+@Html.EditorFor(p => p.Address)

@@ -1,28 +1,38 @@
 ﻿@model IEnumerable<Person>
 @{
     ViewBag.Title = "People";
+
+    const string sortUpHtml = "&nbsp;<i class=\"glyphicon glyphicon-chevron-up\"></i>";
+    const string sortDownHtml = "&nbsp;<i class=\"glyphicon glyphicon-chevron-down\"></i>";
+
+    string richtung = ViewBag.SortRichtung;
+
+    ViewData["display" + ViewBag.SortSpalte] = richtung == "up" ? sortUpHtml : sortDownHtml;
+
+    var nextRichtung = richtung == "up" ? "down" : "up";
+
+    ViewData["richtung" + ViewBag.SortSpalte] = nextRichtung;
 }
 
 <h2>People</h2>
 
 <a class="btn btn-info" href="@Url.Action("Create")">Create</a>
 
-@*@Html.ActionLink("Create", "Create", null, new {@class = "btn btn-info"})*@
-
 <table class="table table-striped">
     <tr>
         <th></th>
-        <th>@Html.DisplayNameFor(p => p.Gender)</th>
-        <th>@Html.DisplayNameFor(p => p.GivenName)</th>
-        <th>@Html.DisplayNameFor(p => p.LastName)</th>
+        <th><a href="@Url.Action("Index", new {spalte = "gender", richtung = ViewData["richtunggender"]})">@Html.DisplayNameFor(p => p.Gender)@Html.Raw(ViewData["displaygender"])</a></th>
+        <th><a href="@Url.Action("Index", new {spalte = "givenname", richtung = ViewData["richtunggivenname"]})">@Html.DisplayNameFor(p => p.GivenName)@Html.Raw(ViewData["displaygivenname"])</a></th>
+        <th><a href="@Url.Action("Index", new {spalte = "lastname", richtung = ViewData["richtunglastname"]})">@Html.DisplayNameFor(p => p.LastName)@Html.Raw(ViewData["displaylastname"])</a></th>
     </tr>
+
     @foreach (var person in Model)
     {
         <tr>
             <td>@Html.ActionLink("Edit", "Edit", new {id = person.Id})</td>
-            <td>@Html.DisplayFor(p => person.Gender)
-            <td>@Html.DisplayFor(p => person.GivenName)
-            <td>@Html.DisplayFor(p => person.LastName)
+            <td>@person.Gender</td>
+            <td>@person.GivenName</td>
+            <td>@person.LastName</td>
         </tr>
     }
 </table>

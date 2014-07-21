@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcTraining.Entities;
@@ -7,11 +10,39 @@ namespace MvcTraining.Controllers
 {
     public class EditPersonController : BaseController
     {
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string spalte = "", string richtung="up")
         {
-            return View(await DbContext.People.ToListAsync());
+            spalte = spalte.ToLowerInvariant();
+            richtung = richtung.ToLowerInvariant();
+
+            ViewBag.SortSpalte = spalte;
+            ViewBag.SortRichtung = richtung;
+
+            IQueryable<Person> people = DbContext.People;
+            
+            switch (spalte)
+            {
+            case "gender" :
+                    people = richtung == "up" ? people.OrderBy(p => p.Gender) : people.OrderByDescending(p => p.Gender);
+                    break;
+            case "givenname" :
+                    people = OrderBy(people, richtung, p => p.GivenName);
+                    break;
+            case "lastname":
+                    people = OrderBy(people, richtung, p => p.LastName);
+                    break;
+            }
+            return View(await people.ToListAsync());
         }
 
+        private static IOrderedQueryable<Person> OrderBy(IQueryable<Person> people, string richtung, Expression<Func<Person, object>> keySelector)
+        {
+            if (richtung == "down")
+            {
+                return people.OrderByDescending(keySelector);
+            }
+            return people.OrderBy(keySelector);
+        }
         public ActionResult Create()
         {
             return View(new Person());
